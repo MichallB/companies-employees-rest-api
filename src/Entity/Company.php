@@ -146,7 +146,7 @@ class Company implements JsonSerializable
             "address" => $this->getAddress(),
             "city" => $this->getCity(),
             "postCode" => $this->getPostCode(),
-            "employees" => $this->getEmployees()->toArray()
+            "employees" => array_values($this->getEmployees()->map(fn($x) => $x->getId())->toArray()),
         ];
     }
 }
