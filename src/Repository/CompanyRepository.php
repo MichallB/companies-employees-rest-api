@@ -27,6 +27,10 @@ class CompanyRepository extends ServiceEntityRepository
 
     public function remove(Company $company, bool $flush = false): void
     {
+        foreach ($company->getEmployees() as $employee) {
+            $employee->setCompany(null);
+        }
+
         $this->getEntityManager()->remove($company);
 
         if ($flush) {
