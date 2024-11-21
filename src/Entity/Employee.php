@@ -15,18 +15,21 @@ class Employee implements JsonSerializable
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $surname = null;
 
+    #[Assert\NotBlank]
     #[Assert\Email(
         message: 'The email {{ value }} is not a valid email.',
     )]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
-
+    
     #[ORM\Column(length: 16, nullable: true)]
     private ?string $phoneNumber = null;
 

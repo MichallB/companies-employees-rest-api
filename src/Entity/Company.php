@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
 class Company implements JsonSerializable
@@ -16,18 +17,23 @@ class Company implements JsonSerializable
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 16)]
     private ?string $nip = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 16)]
     private ?string $postCode = null;
 
