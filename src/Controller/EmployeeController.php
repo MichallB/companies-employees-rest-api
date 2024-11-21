@@ -44,19 +44,26 @@ class EmployeeController extends AbstractController
     {
         $data = $request->getPayload();
         $employee = new Employee();
-        if ($data->has("name"))
+        if ($data->has("name")) {
             $employee->setName($data->getString("name"));
-        if ($data->has("surname"))
+        }
+
+        if ($data->has("surname")) {
             $employee->setSurname($data->getString("surname"));
-        if ($data->has("email"))
+        }
+
+        if ($data->has("email")) {
             $employee->setEmail($data->getString("email"));
-        if ($data->has("phoneNumber"))
+        }
+
+        if ($data->has("phoneNumber")) {
             $employee->setPhoneNumber($data->get("phoneNumber"));
+        }
+
         if ($data->has("companyId")) {
-            $id = $data->getInt("companyId");
-            $company = $companyRepository->find($id);
+            $company = $companyRepository->find($data->getInt("companyId"));
             if (!$company) {
-                return new JsonResponse(["errors" => "Company with id \"$id\" not found"], Response::HTTP_BAD_REQUEST);
+                return new JsonResponse(["errors" => "Company not found"], Response::HTTP_BAD_REQUEST);
             }
             $employee->setCompany($company);
         }
@@ -82,19 +89,26 @@ class EmployeeController extends AbstractController
 
         $data = $request->getPayload();
 
-        if ($data->has("name"))
+        if ($data->has("name")) {
             $employee->setName($data->getString("name"));
-        if ($data->has("surname"))
+        }
+
+        if ($data->has("surname")) {
             $employee->setSurname($data->getString("surname"));
-        if ($data->has("email"))
+        }
+
+        if ($data->has("email")) {
             $employee->setEmail($data->getString("email"));
-        if ($data->has("phoneNumber"))
+        }
+
+        if ($data->has("phoneNumber")) {
             $employee->setPhoneNumber($data->get("phoneNumber"));
+        }
+
         if ($data->has("companyId")) {
-            $id = $data->getInt("companyId");
-            $company = $companyRepository->find($id);
+            $company = $companyRepository->find($data->getInt("companyId"));
             if (!$company) {
-                return new JsonResponse(["errors" => "Company with id \"$id\" not found"], Response::HTTP_BAD_REQUEST);
+                return new JsonResponse(["errors" => "Company not found"], Response::HTTP_BAD_REQUEST);
             }
             $employee->setCompany($company);
         }

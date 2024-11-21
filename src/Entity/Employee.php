@@ -4,8 +4,8 @@ namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use JsonSerializable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 class Employee implements JsonSerializable
@@ -106,7 +106,7 @@ class Employee implements JsonSerializable
             "surname" => $this->getSurname(),
             "email" => $this->getEmail(),
             "phoneNumber" => $this->getPhoneNumber(),
-            "companyId" => $this->getCompany()?->getId()
+            "companyId" => $this->getCompany()?->getId(),
         ];
     }
 }
