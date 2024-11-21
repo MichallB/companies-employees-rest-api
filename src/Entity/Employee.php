@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
@@ -20,6 +21,9 @@ class Employee implements JsonSerializable
     #[ORM\Column(length: 255)]
     private ?string $surname = null;
 
+    #[Assert\Email(
+        message: 'The email {{ value }} is not a valid email.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
@@ -102,7 +106,7 @@ class Employee implements JsonSerializable
             "surname" => $this->getSurname(),
             "email" => $this->getEmail(),
             "phoneNumber" => $this->getPhoneNumber(),
-            "company" => $this->getCompany()->getId()
+            "companyId" => $this->getCompany()?->getId()
         ];
     }
 }
