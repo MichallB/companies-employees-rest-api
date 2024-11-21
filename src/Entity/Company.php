@@ -6,9 +6,10 @@ use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
-class Company
+class Company implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,7 +29,7 @@ class Company
     private ?string $city = null;
 
     #[ORM\Column(length: 16)]
-    private ?string $postcode = null;
+    private ?string $postCode = null;
 
     /**
      * @var Collection<int, Employee>
@@ -94,14 +95,14 @@ class Company
         return $this;
     }
 
-    public function getPostcode(): ?string
+    public function getPostCode(): ?string
     {
-        return $this->postcode;
+        return $this->postCode;
     }
 
-    public function setPostcode(string $postcode): static
+    public function setPostCode(string $postCode): static
     {
-        $this->postcode = $postcode;
+        $this->postCode = $postCode;
 
         return $this;
     }
@@ -134,5 +135,18 @@ class Company
         }
 
         return $this;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->getId(),
+            "name" => $this->getName(),
+            "nip" => $this->getNip(),
+            "address" => $this->getAddress(),
+            "city" => $this->getCity(),
+            "postCode" => $this->getPostCode(),
+            "employees" => $this->getEmployees()->toArray()
+        ];
     }
 }

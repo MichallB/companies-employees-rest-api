@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
-class Employee
+class Employee implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,7 +24,7 @@ class Employee
     private ?string $email = null;
 
     #[ORM\Column(length: 16, nullable: true)]
-    private ?string $phonenumber = null;
+    private ?string $phoneNumber = null;
 
     #[ORM\ManyToOne(inversedBy: "employees")]
     private ?Company $company = null;
@@ -69,14 +70,14 @@ class Employee
         return $this;
     }
 
-    public function getPhonenumber(): ?string
+    public function getPhoneNumber(): ?string
     {
-        return $this->phonenumber;
+        return $this->phoneNumber;
     }
 
-    public function setPhonenumber(?string $phonenumber): static
+    public function setPhoneNumber(?string $phoneNumber): static
     {
-        $this->phonenumber = $phonenumber;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
@@ -91,5 +92,17 @@ class Employee
         $this->company = $company;
 
         return $this;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->getId(),
+            "name" => $this->getName(),
+            "surname" => $this->getSurname(),
+            "email" => $this->getEmail(),
+            "phoneNumber" => $this->getPhoneNumber(),
+            "company" => $this->getCompany()->getId()
+        ];
     }
 }
